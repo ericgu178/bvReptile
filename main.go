@@ -13,12 +13,12 @@ import (
 )
 // 数据库配置
 
-const (
-    userName = ""
-    password = ""
-    ip = ""
-    port = ""
-    dbName = ""
+const ( 
+	userName = "" 
+	password = "" 
+	ip = "" 
+	port = "" 
+	dbName = "" 
 )
 var DB *sql.DB
 
@@ -35,7 +35,7 @@ func RedisSet(key string) bool {
 
     err1 := rdb.Set(ctx, key, key, 0).Err()
     if err1 != nil {
-        panic(err1)
+        fmt.Println(err1)
 		return false
     }
 	return true
@@ -68,7 +68,7 @@ func main() {
     s := goribot.NewSpider(
         goribot.Limiter(true, &goribot.LimitRule{
             Glob: "*.bilibili.com",
-            Rate: 4,
+            Rate: 5,
 			// RandomDelay: 5 * time.Second,// 随机间隔延时（同 host 下每个请求间隔 [0,5) 秒）
         }),
 		goribot.SpiderLogPrint(),
@@ -151,7 +151,7 @@ func main() {
 		fmt.Println(err)
 	}) 
 
-    s.AddTask(goribot.GetReq("https://www.bilibili.com/video/BV1Up4y1t7q4").SetHeader("cookie", "_uuid=1B9F036F-8652-DCDD-D67E-54603D58A9B904750infoc; buvid3=5D62519D-8AB5-449B-A4CF-72D17C3DFB87155806infoc; sid=9h5nzg2a; LIVE_BUVID=AUTO7815811574205505; CURRENT_FNVAL=16; im_notify_type_403928979=0; rpdid=|(k|~uu|lu||0J'ul)ukk)~kY; _ga=GA1.2.533428114.1584175871; PVID=1; DedeUserID=403928979; DedeUserID__ckMd5=08363945687b3545; SESSDATA=b4f022fe%2C1601298276%2C1cf0c*41; bili_jct=2f00b7d205a97aa2ec1475f93bfcb1a3; bp_t_offset_403928979=375484225910036050"), findVideo)
+    s.AddTask(goribot.GetReq("https://www.bilibili.com/video/BV1q64y1y7e2").SetHeader("cookie", "_uuid=1B9F036F-8652-DCDD-D67E-54603D58A9B904750infoc; buvid3=5D62519D-8AB5-449B-A4CF-72D17C3DFB87155806infoc; sid=9h5nzg2a; LIVE_BUVID=AUTO7815811574205505; CURRENT_FNVAL=16; im_notify_type_403928979=0; rpdid=|(k|~uu|lu||0J'ul)ukk)~kY; _ga=GA1.2.533428114.1584175871; PVID=1; DedeUserID=403928979; DedeUserID__ckMd5=08363945687b3545; SESSDATA=b4f022fe%2C1601298276%2C1cf0c*41; bili_jct=2f00b7d205a97aa2ec1475f93bfcb1a3; bp_t_offset_403928979=375484225910036050"), findVideo)
     s.Run()
 }
 
